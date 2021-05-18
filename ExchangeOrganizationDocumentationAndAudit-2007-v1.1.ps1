@@ -1,22 +1,24 @@
-######################################################################################################################
-###                                                                                                                ###
-###  	Script by Terry Munro -                                                                                    ###
-###     Technical Blog -               http://365admin.com.au                                                      ###
-###     Webpage -                      https://www.linkedin.com/in/terry-munro/                                    ###
-###     TechNet Gallery Scripts -      http://tinyurl.com/TerryMunroTechNet                                        ###
-###     Version -                      Version 1.0                                                                 ###
-###     Version History                Version 1.0 - 26/11/2017                                                    ###
-###                                    Version 1.1 - Added PowerShell variable - to prevent truncation of results  ###
-###                                                                                                                ###
-###     Support                        http://www.365admin.com.au/2017/11/how-to-document-local-exchange.html      ###
-###                                                                                                                ###
-###     Download Link                  https://gallery.technet.microsoft.com/Exchange-Org-documentation-9b8ca5ef   ###
-###                                                                                                                ###
-######################################################################################################################
+###################################################################################################################################################
+###                                                                                                                                             ###
+###  	Script by Terry Munro -                                                                                                                   ###
+###     Technical Blog -               http://365admin.com.au                                                                                   ###
+###     Webpage -                      https://www.linkedin.com/in/terry-munro/                                                                 ###
+###     GitHub Scripts -               https://github.com/TeamTerry                                                                             ###
+###                                                                                                                                             ###
+###     GitHub Download link -         https://github.com/TeamTerry/Exchange-Org-documentation-script-for-auditing-and-creating-As-Built-docos  ###
+###                                                                                                                                             ###
+###     Version -                      Version 1.0                                                                                              ###
+###     Version History                Version 1.0 - 26/11/2017                                                                                 ###
+###                                    Version 1.1 - Added PowerShell variable - to prevent truncation of results                               ###
+###                                                                                                                                             ###
+###     Support                        http://www.365admin.com.au/2017/11/how-to-document-local-exchange.html                                   ###
+###                                                                                                                                             ###
+###                                                                                                                                             ###
+###################################################################################################################################################
 
 ##############################################################################################################################
 ###                                                                                                                        ###
-###  	Script Notes                                                                                                       ###
+###  	Script Notes                                                                                                         ###
 ###     Script has been created to document the current local Exchange environment                                         ###
 ###     Script has been tested on Exchange 2007 - Server 2008                                                              ###
 ###                                                                                                                        ###
@@ -85,7 +87,7 @@ Get-Mailbox | Get-ADPermission | where {($_.ExtendedRights -like "*Send-As*") -a
 
 Get-Mailbox -ResultSize Unlimited |  ? {$_.GrantSendOnBehalfTo -ne $null} | select Name,Alias,UserPrincipalName,PrimarySmtpAddress,GrantSendOnBehalfTo | export-csv -NoTypeInformation "$logpath\MailboxSendOnBehalfAccess-LocalExchange.csv"
 
-$a = Get-Mailbox $a | Get-MailboxPermission | Where { ($_.IsInherited -eq $False) -and -not ($_.User -like ìNT AUTHORITY\SELFî) -and -not ($_.User -like '*Discovery Management*') } | Select Identity, user | Export-Csv -NoTypeInformation "$logpath\MailboxFullAccess-LocalExchange.csv"
+$a = Get-Mailbox $a | Get-MailboxPermission | Where { ($_.IsInherited -eq $False) -and -not ($_.User -like ‚ÄúNT AUTHORITY\SELF‚Äù) -and -not ($_.User -like '*Discovery Management*') } | Select Identity, user | Export-Csv -NoTypeInformation "$logpath\MailboxFullAccess-LocalExchange.csv"
 
 
 
